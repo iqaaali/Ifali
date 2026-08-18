@@ -82,7 +82,7 @@
 <body>
 
     <nav>
-        <a href="#" onclick="showSection('home', event)" class="tab-link active">الرئيسية</a>
+        <a href="#" onclick="showSection('home', event)" class="tab-link active">الالرئيسية</a>
         <a href="#" onclick="showSection('rules', event)" class="tab-link">القوانين</a>
         <a href="#" onclick="showSection('store', event)" class="tab-link">المتجر</a>
         <a href="#" onclick="showSection('founders', event)" class="tab-link">المؤسسين</a>
@@ -119,18 +119,9 @@
     <div id="founders" class="section">
         <h2>المؤسسون</h2>
         <div class="founders-container">
-            <div class="founder-card">
-                <img src="kriku.jpg" alt="علي - كريكو" class="founder-img">
-                <h3>علي - كريكو</h3>
-            </div>
-            <div class="founder-card">
-                <img src="hussain.jpg" alt="حسين" class="founder-img">
-                <h3> حسين - شيوعي</h3>
-            </div>
-            <div class="founder-card">
-                <img src="hamad.jpg" alt="حمد" class="founder-img">
-                <h3>حمد</h3>
-            </div>
+            <div class="founder-card"><img src="kriku.jpg" alt="علي - كريكو" class="founder-img"><h3>علي - كريكو</h3></div>
+            <div class="founder-card"><img src="hussain.jpg" alt="حسين" class="founder-img"><h3> حسين - شيوعي</h3></div>
+            <div class="founder-card"><img src="hamad.jpg" alt="حمد" class="founder-img"><h3>حمد</h3></div>
         </div>
     </div>
 
@@ -147,6 +138,15 @@
         </div>
     </div>
 
+    <!-- نافذة طلب الديسكورد -->
+    <div id="discord-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+        <div style="background: #2f3136; padding: 20px; border-radius: 8px; text-align: center; color: white; width: 300px; font-family: sans-serif;">
+            <h3>أدخل يوزر ديسكورد للمتابعة</h3>
+            <input type="text" id="discord-username" placeholder="Discord Username" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: none; box-sizing: border-box;">
+            <button onclick="sendDiscord()" style="background: #7289da; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold;">إرسال</button>
+        </div>
+    </div>
+
     <script>
         function showSection(sectionId, event) {
             event.preventDefault();
@@ -154,39 +154,24 @@
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
             event.target.classList.add('active');
-     <!-- نموذج إدخال يوزر ديسكورد -->
-<div id="discord-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 9999;">
-    <div style="background: #2f3136; padding: 20px; border-radius: 8px; text-align: center; color: white; width: 300px; font-family: sans-serif;">
-        <h3>أدخل يوزر ديسكورد للمتابعة</h3>
-        <input type="text" id="discord-username" placeholder="Discord Username" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: none; box-sizing: border-box;">
-        <button onclick="sendDiscord()" style="background: #7289da; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold;">إرسال</button>
-    </div>
-/
-         <div>
-
-<script>
-    function sendDiscord() {
-        var username = document.getElementById('discord-username').value;
-        if (!username) {
-            alert('يرجى كتابة اليوزر أولاً!');
-            return;
         }
 
-        var webhookURL = 'https://discord.com/api/webhooks/1539237313219928104/2pLmswvo4FMJ6ryEQ5oRVK05h-FQP6h4R0SXJQ4w9Va704_oWEumuWEsykXD-wpg1p_t';
-
-        var request = new XMLHttpRequest();
-        request.open("POST", webhookURL);
-        request.setRequestHeader('Content-type', 'application/json');
-
-        var params = {
-            content: "دخل شخص إلى الموقع وكتب يوزره: **" + username + "**"
-        };
-
-        request.send(JSON.stringify(params));
-
-        document.getElementById('discord-modal').style.display = 'none';
-        alert('تم الإرسال بنجاح!');
-    }
-</script>
+        function sendDiscord() {
+            var username = document.getElementById('discord-username').value;
+            if (!username) {
+                alert('يرجى كتابة اليوزر أولاً!');
+                return;
+            }
+            var webhookURL = 'https://discord.com/api/webhooks/1539237313219928104/2pLmswvo4FMJ6ryEQ5oRVK05h-FQP6h4R0SXJQ4w9Va704_oWEumuWEsykXD-wpg1p_t';
+            var request = new XMLHttpRequest();
+            request.open("POST", webhookURL);
+            request.setRequestHeader('Content-type', 'application/json');
+            var params = { content: "دخل شخص إلى الموقع وكتب يوزره: **" + username + "**" };
+            request.send(JSON.stringify(params));
+            document.getElementById('discord-modal').style.display = 'none';
+            alert('تم الإرسال بنجاح!');
+        }
+    </script>
 </body>
-</html>
+    </html>
+    
