@@ -29,7 +29,7 @@
             padding-bottom: 50px;
         }
 
-        /* تصميم شاشة التحميل السريعة */
+        /* تصميم شاشة التحميل الوهمية والسريعة */
         #loader-screen {
             position: fixed;
             top: 0;
@@ -201,7 +201,7 @@
 </head>
 <body>
 
-    <!-- شاشة التحميل السريعة -->
+    <!-- شاشة التحميل السريعة الوهمية -->
     <div id="loader-screen">
         <img src="banner.jpg" alt="Logo" class="loader-logo">
         <div class="loader-title">EAST LAND CITY</div>
@@ -316,14 +316,14 @@
     </div>
 
     <script>
-        // شاشة تحميل سريعة جداً وتنتقل تلقائياً لـ 100% خلال ثانية واحدة ولا تتوقف نهائياً
+        // شاشة تحميل وهمية سريعة ومضمونة لا تتوقف نهائياً وتكتمل تلقائياً
         let currentPercent = 0;
         const loaderBar = document.getElementById('loader-bar');
         const loaderPercentage = document.getElementById('loader-percentage');
         const loaderScreen = document.getElementById('loader-screen');
 
         let loadInterval = setInterval(function() {
-            currentPercent += 10; // تزيد بسرعة وثبات
+            currentPercent += 10;
             if (currentPercent > 100) {
                 currentPercent = 100;
             }
@@ -340,9 +340,9 @@
                     }, 400);
                 }
             }
-        }, 50); // سرعة فائقة تضمن عدم تعليق التحميل أبداً
+        }, 50);
 
         // التنقل بين الأقسام
         function showSection(sectionId, event) {
             if(event) event.preventDefault();
-   
+            document.querySelectorAll('.section').forEach(sec => {
