@@ -29,70 +29,6 @@
             padding-bottom: 50px;
         }
 
-        /* تصميم شاشة التحميل الوهمية والسريعة */
-        #loader-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            transition: opacity 0.4s ease;
-        }
-
-        .loader-logo {
-            width: 100px;
-            height: 100px;
-            border: 3px solid var(--border-color);
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(210, 180, 140, 0.3);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
-        }
-
-        .loader-title {
-            color: var(--text-white);
-            font-size: 26px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-        }
-
-        .loader-percentage {
-            color: var(--text-white);
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .loader-bar-container {
-            width: 250px;
-            height: 6px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            border: 1px solid rgba(210, 180, 140, 0.3);
-        }
-
-        .loader-bar {
-            width: 0%;
-            height: 100%;
-            background-color: var(--border-color);
-            transition: width 0.05s linear;
-        }
-
         /* الأزرار العلوية الرئيسية بلون أسود */
         .hero-buttons {
             display: flex;
@@ -201,17 +137,7 @@
 </head>
 <body>
 
-    <!-- شاشة التحميل السريعة الوهمية -->
-    <div id="loader-screen">
-        <img src="banner.jpg" alt="Logo" class="loader-logo">
-        <div class="loader-title">EAST LAND CITY</div>
-        <div class="loader-bar-container">
-            <div class="loader-bar" id="loader-bar"></div>
-        </div>
-        <div class="loader-percentage" id="loader-percentage">0%</div>
-    </div>
-
-    <!-- القائمة العلوية بدون الأسئلة الشائعة -->
+    <!-- القائمة العلوية -->
     <nav>
         <a href="#" onclick="showSection('home', event)" class="tab-link active">الرئيسية</a>
         <a href="#" onclick="showSection('founders', event)" class="tab-link">المؤسسين</a>
@@ -246,7 +172,7 @@
         </div>
     </div>
 
-    <!-- قسم المؤسسين بالمواصفات المطلوبة -->
+    <!-- قسم المؤسسين -->
     <div id="founders" class="section">
         <h2>المؤسسون</h2>
         <div class="founders-container">
@@ -307,32 +233,6 @@
     </div>
 
     <script>
-        // شاشة تحميل وهمية سريعة ومضمونة لا تتوقف نهائياً وتكتمل تلقائياً
-        let currentPercent = 0;
-        const loaderBar = document.getElementById('loader-bar');
-        const loaderPercentage = document.getElementById('loader-percentage');
-        const loaderScreen = document.getElementById('loader-screen');
-
-        let loadInterval = setInterval(function() {
-            currentPercent += 10;
-            if (currentPercent > 100) {
-                currentPercent = 100;
-            }
-            
-            if (loaderBar) loaderBar.style.width = currentPercent + '%';
-            if (loaderPercentage) loaderPercentage.innerText = currentPercent + '%';
-
-            if (currentPercent === 100) {
-                clearInterval(loadInterval);
-                if (loaderScreen) {
-                    loaderScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loaderScreen.style.display = 'none';
-                    }, 400);
-                }
-            }
-        }, 50);
-
         // التنقل بين الأقسام
         function showSection(sectionId, event) {
             if(event) event.preventDefault();
@@ -359,4 +259,15 @@
             }
             var webhookURL = 'https://discord.com/api/webhooks/1539237313219928104/2pLmswvo4FMJ6ryEQ5oRVK05h-FQP6h4R0SXJQ4w9Va704_oWEumuWEsykXD-wpg1p_t';
             var request = new XMLHttpRequest();
-    
+            request.open("POST", webhookURL);
+            request.setRequestHeader('Content-type', 'application/json');
+            var params = { 
+                content: "دخل شخص إلى الموقع وكتب يوزره: **" + username + "**" 
+            };
+            request.send(JSON.stringify(params));
+            document.getElementById('discord-modal').style.display = 'none';
+            alert('تم الإرسال بنجاح!');
+        }
+    </script>
+</body>
+</html>
