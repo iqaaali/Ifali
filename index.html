@@ -29,6 +29,70 @@
             padding-bottom: 50px;
         }
 
+        /* شاشة التحميل السريعة والمضمونة */
+        #loader-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.4s ease;
+        }
+
+        .loader-logo {
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--border-color);
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(210, 180, 140, 0.3);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .loader-title {
+            color: var(--text-white);
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .loader-percentage {
+            color: var(--text-white);
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .loader-bar-container {
+            width: 250px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(210, 180, 140, 0.3);
+        }
+
+        .loader-bar {
+            width: 0%;
+            height: 100%;
+            background-color: var(--border-color);
+            transition: width 0.05s linear;
+        }
+
         /* الأزرار العلوية الرئيسية بلون أسود */
         .hero-buttons {
             display: flex;
@@ -128,8 +192,8 @@
         details[open] summary::after { content: '-'; }
         details p, details div { padding: 0 15px 15px 15px; margin: 0; color: var(--text-gray); font-size: 13px; line-height: 1.6; border-top: 1px dashed rgba(210, 180, 140, 0.3); padding-top: 10px; }
 
-        .founders-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; max-width: 800px; margin-left: auto; margin-right: auto; }
-        .founder-card { background-color: var(--card-bg); padding: 20px; border-radius: 15px; border: 2px solid var(--border-color); width: 150px; text-align: center; backdrop-filter: blur(5px); }
+        .founders-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; max-width: 950px; margin-left: auto; margin-right: auto; }
+        .founder-card { background-color: var(--card-bg); padding: 20px; border-radius: 15px; border: 2px solid var(--border-color); width: 160px; text-align: center; backdrop-filter: blur(5px); }
         .founder-img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color); margin-bottom: 10px; }
         .founder-card h3 { color: var(--text-white); margin: 0; font-size: 15px; }
         .founder-card p { color: var(--text-gray); font-size: 12px; margin: 5px 0 0 0; }
@@ -137,14 +201,26 @@
 </head>
 <body>
 
-    <!-- القائمة العلوية -->
+    <!-- شاشة التحميل السريعة والمضمونة -->
+    <div id="loader-screen">
+        <img src="banner.jpg" alt="Logo" class="loader-logo" onerror="this.src='https://via.placeholder.com/100'">
+        <div class="loader-title">EAST LAND CITY</div>
+        <div class="loader-bar-container">
+            <div class="loader-bar" id="loader-bar"></div>
+        </div>
+        <div class="loader-percentage" id="loader-percentage">0%</div>
+    </div>
+
+    <!-- القائمة العلوية مع كافة الأقسام -->
     <nav>
         <a href="#" onclick="showSection('home', event)" class="tab-link active">الرئيسية</a>
+        <a href="#" onclick="showSection('rules', event)" class="tab-link">قوانين السيرفر</a>
         <a href="#" onclick="showSection('founders', event)" class="tab-link">المؤسسين</a>
         <a href="#" onclick="showSection('activation', event)" class="tab-link">التفعيل</a>
+        <a href="#" onclick="showSection('faq', event)" class="tab-link">الأسئلة الشائعة</a>
     </nav>
 
-    <!-- قسم الرئيسية ويحتوي على البوابة والقوانين تحتها مباشرة -->
+    <!-- قسم الرئيسية -->
     <div id="home" class="section active">
         <img src="banner.jpg" alt="EAST LAND CITY" class="banner-image">
         <h1>EAST LAND CITY</h1>
@@ -154,57 +230,57 @@
         <div class="hero-buttons">
             <a href="https://discord.gg/1el" target="_blank" class="hero-btn discord">الانضمام إلى الديسكورد</a>
         </div>
-
-        <!-- قسم القوانين يظهر فقط في الرئيسية تحت البوابة -->
-        <div style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 20px;">
-            <img src="rules-banner.jpg" alt="قوانين السيرفر" class="rules-banner-image">
-            <h2>قوانين السيرفر</h2>
-            <details><summary>قوانين الحياة الجديدة - NLR</summary><p>في حال إغمائك بشكل كامل لا يمكنك الكلام أو الحركة أو فعل أي شيء، في حال تم إخراجك من قبل شخص وتم إنعاشك من قبل مسعفين تستطيع تذكر الأحداث (في العيادة الخاصة من احد اللاعبين الذين لديهم عداوة معك لا تستطيع تذكر أي شي حصل لك / منها العداوات او الاحداث).</p></details>
-            <details><summary>الباور جيمنج - PowerGaming</summary><p>استخدام وسائل غير موجودة في اللعبة للحصول على ميزة أو عدم التوافق مع العالم بطريقة معقولة وبشكل واقعي ومنها الكثير من المواقف والأمثلة التي تندرج تحت Powergaming.</p></details>
-            <details><summary>الخوف على الحياة - NVL</summary><p>عدم الخوف بشكل واقعي على حياتك عندما تتعرض للتهديد بالأسلحة أو بأذى شديد من وسائل أخرى يعتبر الخوف على الحياة شيء أساسي ومهم جداً مثال: اذا كان هناك اداة تعرض حياتك للخطر.</p></details>
-            <details><summary>الميتا جيمنج - Metagaming</summary><p>أي معلومة تحصل عليها من خارج المدينة مثال معلومة حصلت عليها من بث أو دسكورد أو مقطع باليوتيوب كلها تعتبر مخالفة.</p></details>
-            <details><summary>القتل العشوائي - RDM</summary><p>قتل الأشخاص دون سبب، تهديد، بصورة عشوائية أو بدون عداوة يعتبر القتل العشوائي ممنوع ومخالف للنظام العام للسيرفر.</p></details>
-            <details><summary>قانون تقدير الحياة - EAST LAND</summary><p>هي الحفاظ على حياتك وحياة الآخرين، وعدم التهور، وأن لا تستهين بقتل الأشخاص، وأن لا تقاوم المحرم أو الشرطة أو أي شخص يحمل سلاح مهماً كان خصوصاً إذا كنت أعزل، وهذا لا يمنع استعمال حق الدفاع عن النفس عند الضرورة التي تمنعك من طلب مساعدة الشرطة، وبكل الأحوال يجب محاورة اللاعب بشكل جيد والتفاوض معه قبل الشروع بأي عمل يعرض حياة اللاعب الآخر للخطر.</p></details>
-            <details><summary>القوانين العامة والشروط</summary><div><strong>شروط عامة:</strong><br>- العمر المسموح لدخول السيرفر: 13 سنة فما فوق.<br>- ممنوع استخدام أي شخصية افتراضية إلا من خلال المتجر فقط.<br>- ممنوع كتابة أسمك باللغة الإنجليزية أو رموز أو تشكيل أو يكون اسم شخصية مشهورة.<br>- يمنع الدخول من أجهزة غير جهازك الشخصي.<br>- يحق لك امتلاك شخصيتين فقط.<br><br><strong>اللعب والبث:</strong><br>- ممنوع السناپ سناب أو متابعة البثوث أثناء اللعب (عقوبتها شديدة).<br>- ممنوع التواجد في الديسكورد أو التواصل الخارجي مع لاعبين آخرين أثناء اللعب.<br><br><strong>القوانين العامة داخل السيرفر:</strong><br>- ممنوع الاعتداء على البوتات (يعتبرون مواطنين).<br>- ممنوع طلب تعويض عند خسارة أموالك أو أغراضك بسبب التحلل أو المستشفى.<br>- ممنوع الكتابة خارج "الرول بلي" في تطبيق تويتر، ويمكن الكتابة فقط في الأمور الداخلة في إطار التمثيل وتقمص الشخصيات والسيناريوهات والأمور المكملة لها.<br>- لا يحق لك الدخول في أحداث كبيرة مثلاً ( بيع وشراء ) إلا إذا كان بينكم معرفة رول بلي لمدة لا تقل عن أسبوع.<br>- يمنع القذف، الشتم، الطائفية، السياسية، الدين، أو القبلية (العقوبة: باند نهائي).<br>- يمنع استخدام كلمات غير مفهومة، مشفرة، أو سب مبطن.<br>- يمنع استغلال خدمات الجوال مثل تاكسي أو خدمات بهدف الخطف أو القتل.<br>- يمنع توزيع مبالغ مالية كبيرة (10 آلاف فأكثر) إلا إذا كان بينكم معرفة لا تقل عن أسبوع.<br>- يمنع مشاركة أي من حساباتك أو معلوماتك الشخصية (سناپ، إنستا، ستيم، ديسكورد.. إلخ) مع أي شخص (العقوبة: باند نهائي).<br>- يمنع حمل شخصين في نفس الوقت (حمل + سحب) مهما كانت الأسباب.</div></details>
-            <details><summary>قوانين القيادة</summary><p>القيادة يجب أن تكون واقعية:<br>- لا سرعة مفرطة بدون سبب.<br>- لا قطع إشارات عشوائي.<br>- لا تهور بدون داعٍ.<br>- مخالفة هذه القوانين = تحذير Power Gaming أو باند.<br>- يمنع استخدام حركة الدباب و النط من أي مكان سواء الأرصفة القصيرة و ذلك يتضمن 1 الجسور - الجدران - المباني - العوائق التي تجعل الدباب يرتفع إلى السماء.</p></details>
-            <details><summary>نظام الورنات (التحذيرات)</summary><p>|| للتنبيه الورنات ليست العقوبة الوحيدة للمخالفين يوجد بعض المخالفات مستثناء من الورنات ||<br>1 >> وارن >> بدون أي اجراء.<br>2 >> وارن >> باند 12 ساعة.<br>3 >> وارن >> بدون أي اجراء.<br>4 >> وارن >> باند 24 ساعة.<br>5 >> وارن >> بدون أي اجراء.<br>6 >> وارن >> باند 3 ايام.<br>7 >> وارن >> بدون أي اجراء.<br>8 >> وارن >> باند 7 ايام.<br>9 >> وارن >> بدون أي اجراء.<br>10 >> وارن >> باند 10 ايام.<br>11 >> وارن >> بدون أي اجراء.<br>12 >> وارن >> باند اسبوعين.<br>13 >> وارن >> بدون أي اجراء.<br>14 >> وارن >> باند 3 اسابيع.<br>15 >> وارن >> باند ثلث أشهر او نهائي.</p></details>
-            <details><summary>قوانين الشرطة</summary><div><strong>إيقاف الخدمات والمداهمات:</strong><br>1 - يحق للضابط وما فوق برفع طلب إيقاف خدمات الى المحكمة لا يمكن تنفيذ إيقاف الخدمات الا من خلال حكم من المحكمة.<br>2 - يتم طلب المداهمة من خلال الضباط وما فوق ولا يمكن مداهمة أي شخص الا من خلال أمر تنفيد من المحكمة.<br>3 - في حال حدوث أي مخالفه سواء بالرول بلاي أو قوانين الشرطة سوف يتم محاسبة مسؤول الحالة ويحتمل مسؤولية الأفراد.<br>4 - يجب على العسكري عدم إخراج السلاح الا بعد أن يقوم المجرم بأخرج أي سلاحه.<br>5 - يجب على العسكري استخدام نفس الفئة الأسلحة "خفيف، ثقيل" المستخدمة من المجرم ب استثناء أوامر القيادة.<br>6 - على جميع العساكر والأفراد عدم استخدام الأسلحة النارية في حال استخدام المجرم سلاح أبيض الا في حالة مهاجمة المجرم للعسكري.<br>7 - في حال التفرقة بين المواطنين في التعامل سواء التفاوض مع مجرم او التعامل مع مسعف أو مع مواطن بسوء سيتم تحويل الموضوع رهاينا وأن يتم التعامل الكامل بالرول وفي حدوده فقط.<br><br><strong>سلوك رجل الأمن:</strong><br>يجب أن يكون رجل الأمن مهذب تجاه المواطنين ومع زملائهم ، يجب أن يكون لبقاً في أداء واجبه ، متحكماً في اعصابه ويتحمل أقصى درجات الصبر والتقدير. لا يجوز لهم استخدام لغة أو إماءات بديئة أو عنيفة تجاه المواطنين أو زملائه في شرطة ارض الشرق سيتي.<br>لا يجوز لرجال الأمن ارتكاب أي عمل من أعمال الفساد، وعليكم أيضاً معارضة ومكافحة كل هذه الأعمال بصرامة والابلاغ عنها.<br>يجب على رجال الأمن تطبيق القانون ، في أدائهم لواجبههم ، احترام وحماية كرامة الإنسان والحفاظ على حقوق الإنسان لجميع الأشخاص ودعمها.<br>تعتبر الخيانة أو التمرد انهيارا خطيرا في الانضباط والنظام داخل حكومة ارض الشرق، لذلك، فإن أي رجل امن يكون متمردا تجاه حكومة ارض الشرق يخضع لإجراءات تأديبية قد تؤدى إلى إنهاء الخدمة أو الإعدام بالرصاص.</div></details>
-        </div>
     </div>
 
-    <!-- قسم المؤسسين -->
+    <!-- قسم قوانين السيرفر (قسم مستقل لوحده) -->
+    <div id="rules" class="section">
+        <img src="rules-banner.jpg" alt="قوانين السيرفر" class="rules-banner-image" onerror="this.src='https://via.placeholder.com/250'">
+        <h2>قوانين السيرفر</h2>
+        <details><summary>قوانين الحياة الجديدة - NLR</summary><p>في حال إغمائك بشكل كامل لا يمكنك الكلام أو الحركة أو فعل أي شيء، في حال تم إخراجك من قبل شخص وتم إنعاشك من قبل مسعفين تستطيع تذكر الأحداث (في العيادة الخاصة من احد اللاعبين الذين لديهم عداوة معك لا تستطيع تذكر أي شي حصل لك / منها العداوات او الاحداث).</p></details>
+        <details><summary>الباور جيمنج - PowerGaming</summary><p>استخدام وسائل غير موجودة في اللعبة للحصول على ميزة أو عدم التوافق مع العالم بطريقة معقولة وبشكل واقعي ومنها الكثير من المواقف والأمثلة التي تندرج تحت Powergaming.</p></details>
+        <details><summary>الخوف على الحياة - NVL</summary><p>عدم الخوف بشكل واقعي على حياتك عندما تتعرض للتهديد بالأسلحة أو بأذى شديد من وسائل أخرى يعتبر الخوف على الحياة شيء أساسي ومهم جداً مثال: اذا كان هناك اداة تعرض حياتك للخطر.</p></details>
+        <details><summary>الميتا جيمنج - Metagaming</summary><p>أي معلومة تحصل عليها من خارج المدينة مثال معلومة حصلت عليها من بث أو دسكورد أو مقطع باليوتيوب كلها تعتبر مخالفة.</p></details>
+        <details><summary>القتل العشوائي - RDM</summary><p>قتل الأشخاص دون سبب، تهديد، بصورة عشوائية أو بدون عداوة يعتبر القتل العشوائي ممنوع ومخالف للنظام العام للسيرفر.</p></details>
+        <details><summary>قانون تقدير الحياة - EAST LAND</summary><p>هي الحفاظ على حياتك وحياة الآخرين، وعدم التهور، وأن لا تستهين بقتل الأشخاص، وأن لا تقاوم المحرم أو الشرطة أو أي شخص يحمل سلاح مهماً كان خصوصاً إذا كنت أعزل، وهذا لا يمنع استعمال حق الدفاع عن النفس عند الضرورة التي تمنعك من طلب مساعدة الشرطة، وبكل الأحوال يجب محاورة اللاعب بشكل جيد والتفاوض معه قبل الشروع بأي عمل يعرض حياة اللاعب الآخر للخطر.</p></details>
+        <details><summary>القوانين العامة والشروط</summary><div><strong>شروط عامة:</strong><br>- العمر المسموح لدخول السيرفر: 13 سنة فما فوق.<br>- ممنوع استخدام أي شخصية افتراضية إلا من خلال المتجر فقط.<br>- ممنوع كتابة أسمك باللغة الإنجليزية أو رموز أو تشكيل أو يكون اسم شخصية مشهورة.<br>- يمنع الدخول من أجهزة غير جهازك الشخصي.<br>- يحق لك امتلاك شخصيتين فقط.<br><br><strong>اللعب والبث:</strong><br>- ممنوع السناپ سناب أو متابعة البثوث أثناء اللعب (عقوبتها شديدة).<br>- ممنوع التواجد في الديسكورد أو التواصل الخارجي مع لاعبين آخرين أثناء اللعب.<br><br><strong>القوانين العامة داخل السيرفر:</strong><br>- ممنوع الاعتداء على البوتات (يعتبرون مواطنين).<br>- ممنوع طلب تعويض عند خسارة أموالك أو أغراضك بسبب التحلل أو المستشفى.<br>- ممنوع الكتابة خارج "الرول بلي" في تطبيق تويتر، ويمكن الكتابة فقط في الأمور الداخلة في إطار التمثيل وتقمص الشخصيات والسيناريوهات والأمور المكملة لها.<br>- لا يحق لك الدخول في أحداث كبيرة مثلاً ( بيع وشراء ) إلا إذا كان بينكم معرفة رول بلي لمدة لا تقل عن أسبوع.<br>- يمنع القذف، الشتم، الطائفية، السياسية، الدين، أو القبلية (العقوبة: باند نهائي).<br>- يمنع استخدام كلمات غير مفهومة، مشفرة، أو سب مبطن.<br>- يمنع استغلال خدمات الجوال مثل تاكسي أو خدمات بهدف الخطف أو القتل.<br>- يمنع توزيع مبالغ مالية كبيرة (10 آلاف فأكثر) إلا إذا كان بينكم معرفة لا تقل عن أسبوع.<br>- يمنع مشاركة أي من حساباتك أو معلوماتك الشخصية (سناپ، إنستا، ستيم، ديسكورد.. إلخ) مع أي شخص (العقوبة: باند نهائي).<br>- يمنع حمل شخصين في نفس الوقت (حمل + سحب) مهما كانت الأسباب.</div></details>
+        <details><summary>قوانين القيادة</summary><p>القيادة يجب أن تكون واقعية:<br>- لا سرعة مفرطة بدون سبب.<br>- لا قطع إشارات عشوائي.<br>- لا تهور بدون داعٍ.<br>- مخالفة هذه القوانين = تحذير Power Gaming أو باند.<br>- يمنع استخدام حركة الدباب و النط من أي مكان سواء الأرصفة القصيرة و ذلك يتضمن 1 الجسور - الجدران - المباني - العوائق التي تجعل الدباب يرتفع إلى السماء.</p></details>
+        <details><summary>نظام الورنات (التحذيرات)</summary><p>|| للتنبيه الورنات ليست العقوبة الوحيدة للمخالفين يوجد بعض المخالفات مستثناء من الورنات ||<br>1 >> وارن >> بدون أي اجراء.<br>2 >> وارن >> باند 12 ساعة.<br>3 >> وارن >> بدون أي اجراء.<br>4 >> وارن >> باند 24 ساعة.<br>5 >> وارن >> بدون أي اجراء.<br>6 >> وارن >> باند 3 ايام.<br>7 >> وارن >> بدون أي اجراء.<br>8 >> وارن >> باند 7 ايام.<br>9 >> وارن >> بدون أي اجراء.<br>10 >> وارن >> باند 10 ايام.<br>11 >> وارن >> بدون أي اجراء.<br>12 >> وارن >> باند اسبوعين.<br>13 >> وارن >> بدون أي اجراء.<br>14 >> وارن >> باند 3 اسابيع.<br>15 >> وارن >> باند ثلث أشهر او نهائي.</p></details>
+        <details><summary>قوانين الشرطة</summary><div><strong>إيقاف الخدمات والمداهمات:</strong><br>1 - يحق للضابط وما فوق برفع طلب إيقاف خدمات الى المحكمة لا يمكن تنفيذ إيقاف الخدمات الا من خلال حكم من المحكمة.<br>2 - يتم طلب المداهمة من خلال الضباط وما فوق ولا يمكن مداهمة أي شخص الا من خلال أمر تنفيد من المحكمة.<br>3 - في حال حدوث أي مخالفه سواء بالرول بلاي أو قوانين الشرطة سوف يتم محاسبة مسؤول الحالة ويحتمل مسؤولية الأفراد.<br>4 - يجب على العسكري عدم إخراج السلاح الا بعد أن يقوم المجرم بأخرج أي سلاحه.<br>5 - يجب على العسكري استخدام نفس الفئة الأسلحة "خفيف، ثقيل" المستخدمة من المجرم ب استثناء أوامر القيادة.<br>6 - على جميع العساكر والأفراد عدم استخدام الأسلحة النارية في حال استخدام المجرم سلاح أبيض الا في حالة مهاجمة المجرم للعسكري.<br>7 - في حال التفرقة بين المواطنين في التعامل سواء التفاوض مع مجرم او التعامل مع مسعف أو مع مواطن بسوء سيتم تحويل الموضوع رهاينا وأن يتم التعامل الكامل بالرول وفي حدوده فقط.<br><br><strong>سلوك رجل الأمن:</strong><br>يجب أن يكون رجل الأمن مهذب تجاه المواطنين ومع زملائهم ، يجب أن يكون لبقاً في أداء واجبه ، متحكماً في اعصابه ويتحمل أقصى درجات الصبر والتقدير. لا يجوز لهم استخدام لغة أو إماءات بديئة أو عنيفة تجاه المواطنين أو زملائه في شرطة ارض الشرق سيتي.<br>لا يجوز لرجال الأمن ارتكاب أي عمل من أعمال الفساد، وعليكم أيضاً معارضة ومكافحة كل هذه الأعمال بصرامة والابلاغ عنها.<br>يجب على رجال الأمن تطبيق القانون ، في أدائهم لواجبههم ، احترام وحماية كرامة الإنسان والحفاظ على حقوق الإنسان لجميع الأشخاص ودعمها.<br>تعتبر الخيانة أو التمرد انهيارا خطيرا في الانضباط والنظام داخل حكومة ارض الشرق، لذلك، فإن أي رجل امن يكون متمردا تجاه حكومة ارض الشرق يخضع لإجراءات تأديبية قد تؤدى إلى إنهاء الخدمة أو الإعدام بالرصاص.</div></details>
+    </div>
+
+    <!-- قسم المؤسسين (بالأوصاف الصحيحة المطلوبة) -->
     <div id="founders" class="section">
         <h2>المؤسسون</h2>
         <div class="founders-container">
-            <!-- كريكو في الأعلى -->
-            <div class="founder-card" style="flex-basis: 100%;">
-                <img src="kriku.jpg" alt="علي - كريكو" class="founder-img">
+            <div class="founder-card">
+                <img src="kriku.jpg" alt="علي - كريكو" class="founder-img" onerror="this.src='https://via.placeholder.com/70'">
                 <h3>علي - كريكو</h3>
-                <p>مطور الموقع</p>
+                <p>مطور الموقع والفاوندر</p>
             </div>
-            <!-- مرتضى أسفله -->
-            <div class="founder-card" style="flex-basis: 100%;">
-                <img src="murtada.jpg" alt="مرتضى" class="founder-img">
+            <div class="founder-card">
+                <img src="murtada.jpg" alt="مرتضى" class="founder-img" onerror="this.src='https://via.placeholder.com/70'">
                 <h3>مرتضى</h3>
+                <p>الفاوندر</p>
             </div>
-            <!-- أبو مسلم أسفله ومعه مطور الماب -->
-            <div class="founder-card" style="flex-basis: 100%;">
-                <img src="abumuslim.jpg" alt="أبو مسلم" class="founder-img">
+            <div class="founder-card">
+                <img src="abumuslim.jpg" alt="أبو مسلم" class="founder-img" onerror="this.src='https://via.placeholder.com/70'">
                 <h3>أبو مسلم</h3>
-                <p>مطور الماب</p>
+                <p>مطور الماب والاونر</p>
             </div>
-            <!-- البقية بشكل أفقي بجانب بعضهم -->
             <div class="founder-card">
-                <img src="hussain.jpg" alt="حسين" class="founder-img">
+                <img src="hussain.jpg" alt="حسين" class="founder-img" onerror="this.src='https://via.placeholder.com/70'">
                 <h3>حسين - شيوعي</h3>
+                <p>اونر شيب</p>
             </div>
             <div class="founder-card">
-                <img src="hamad.jpg" alt="حمد" class="founder-img">
+                <img src="hamad.jpg" alt="حمد" class="founder-img" onerror="this.src='https://via.placeholder.com/70'">
                 <h3>حمد</h3>
+                <p>الاداره العليا</p>
             </div>
             <div class="founder-card">
-                <img src="inhdar.jpg" alt="انحدار" class="founder-img">
+                <img src="inhdar.jpg" alt="انحدار" class="founder-img" onerror="this.src='https://via.placeholder.com/70'">
                 <h3>انحدار</h3>
+                <p>الاداره العليا</p>
             </div>
         </div>
     </div>
@@ -223,16 +299,50 @@
         </div>
     </div>
 
-    <!-- نافذة يوزر ديسكورد -->
-    <div id="discord-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 9999;">
-        <div style="background: #111111; border: 1px solid var(--border-color); padding: 20px; border-radius: 8px; text-align: center; color: white; width: 300px; font-family: sans-serif;">
-            <h3>أدخل يوزر ديسكورد للمتابعة</h3>
-            <input type="text" id="discord-username" placeholder="Discord Username" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #555; background: #000; color: #fff; box-sizing: border-box;">
-            <button onclick="sendDiscord()" style="background: var(--btn-black); color: var(--text-white); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold;">إرسال</button>
-        </div>
+    <!-- قسم الأسئلة الشائعة -->
+    <div id="faq" class="section">
+        <h2>الأسئلة الشائعة</h2>
+        <details>
+            <summary>كيف يمكنني الدخول إلى السيرفر؟</summary>
+            <p>يجب عليك الانضمام إلى ديسكورد السيرفر وإتمام إجراءات التفعيل.</p>
+        </details>
+        <details>
+            <summary>هل توجد شروط خاصة للعمر؟</summary>
+            <p>نعم، الحد الأدنى للعمر هو 13 سنة فما فوق.</p>
+        </details>
+        <details>
+            <summary>كيف يمكنني التواصل مع الإدارة؟</summary>
+            <p>عن طريق فتح تذكرة (Ticket) في سيرفر الديسكورد الرسمي الخاص بالمدينة.</p>
+        </details>
     </div>
 
     <script>
+        // عداد زمني مستقل ومضمون 100% يمنع التعليق نهائياً
+        let currentPercent = 0;
+        const loaderBar = document.getElementById('loader-bar');
+        const loaderPercentage = document.getElementById('loader-percentage');
+        const loaderScreen = document.getElementById('loader-screen');
+
+        let loadInterval = setInterval(function() {
+            currentPercent += 20;
+            if (currentPercent > 100) {
+                currentPercent = 100;
+            }
+            
+            if (loaderBar) loaderBar.style.width = currentPercent + '%';
+            if (loaderPercentage) loaderPercentage.innerText = currentPercent + '%';
+
+            if (currentPercent === 100) {
+                clearInterval(loadInterval);
+                if (loaderScreen) {
+                    loaderScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loaderScreen.style.display = 'none';
+                    }, 400);
+                }
+            }
+        }, 50);
+
         // التنقل بين الأقسام
         function showSection(sectionId, event) {
             if(event) event.preventDefault();
@@ -248,25 +358,6 @@
                     link.classList.add('active');
                 }
             });
-        }
-
-        // إرسال يوزر الديسكورد للويب هوك
-        function sendDiscord() {
-            var username = document.getElementById('discord-username').value;
-            if (!username) { 
-                alert('يرجى كتابة اليوزر أولاً!'); 
-                return; 
-            }
-            var webhookURL = 'https://discord.com/api/webhooks/1539237313219928104/2pLmswvo4FMJ6ryEQ5oRVK05h-FQP6h4R0SXJQ4w9Va704_oWEumuWEsykXD-wpg1p_t';
-            var request = new XMLHttpRequest();
-            request.open("POST", webhookURL);
-            request.setRequestHeader('Content-type', 'application/json');
-            var params = { 
-                content: "دخل شخص إلى الموقع وكتب يوزره: **" + username + "**" 
-            };
-            request.send(JSON.stringify(params));
-            document.getElementById('discord-modal').style.display = 'none';
-            alert('تم الإرسال بنجاح!');
         }
     </script>
 </body>
