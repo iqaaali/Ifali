@@ -29,7 +29,7 @@
             padding-bottom: 50px;
         }
 
-        /* تصميم شاشة التحميل (Loading Screen) */
+        /* تصميم شاشة التحميل السريعة */
         #loader-screen {
             position: fixed;
             top: 0;
@@ -42,7 +42,7 @@
             justify-content: center;
             align-items: center;
             z-index: 99999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
         }
 
         .loader-logo {
@@ -90,7 +90,7 @@
             width: 0%;
             height: 100%;
             background-color: var(--border-color);
-            transition: width 0.1s linear;
+            transition: width 0.05s linear;
         }
 
         /* الأزرار العلوية الرئيسية بلون أسود */
@@ -201,7 +201,7 @@
 </head>
 <body>
 
-    <!-- شاشة التحميل (Loading Screen) -->
+    <!-- شاشة التحميل السريعة -->
     <div id="loader-screen">
         <img src="banner.jpg" alt="Logo" class="loader-logo">
         <div class="loader-title">EAST LAND CITY</div>
@@ -316,14 +316,14 @@
     </div>
 
     <script>
-        // شاشة تحميل محسنة ومضمونة 100% لكي لا تتوقف أبداً
+        // شاشة تحميل سريعة جداً وتنتقل تلقائياً لـ 100% خلال ثانية واحدة ولا تتوقف نهائياً
         let currentPercent = 0;
         const loaderBar = document.getElementById('loader-bar');
         const loaderPercentage = document.getElementById('loader-percentage');
         const loaderScreen = document.getElementById('loader-screen');
 
         let loadInterval = setInterval(function() {
-            currentPercent += 5; // زيادة تدريجية منتظمة وثابتة
+            currentPercent += 10; // تزيد بسرعة وثبات
             if (currentPercent > 100) {
                 currentPercent = 100;
             }
@@ -337,11 +337,12 @@
                     loaderScreen.style.opacity = '0';
                     setTimeout(() => {
                         loaderScreen.style.display = 'none';
-                    }, 500);
+                    }, 400);
                 }
             }
-        }, 30); // تتحرك بسرعة وسلاسة تامة وتكتمل خلال ثوانٍ معدودة
+        }, 50); // سرعة فائقة تضمن عدم تعليق التحميل أبداً
 
         // التنقل بين الأقسام
         function showSection(sectionId, event) {
             if(event) event.preventDefault();
+   
