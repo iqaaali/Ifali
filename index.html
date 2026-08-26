@@ -16,11 +16,7 @@
         }
 
         body {
-            background-image: linear-gradient(rgba(11, 10, 9, 0.9), rgba(11, 10, 9, 0.9)), url('background.jpg');
             background-color: var(--bg-color);
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             color: var(--text-white);
             font-family: sans-serif;
             margin: 0;
@@ -29,7 +25,7 @@
             padding-bottom: 50px;
         }
 
-        /* تصميم شاشة التحميل (Loading Screen) */
+        /* شاشة التحميل السريعة */
         #loader-screen {
             position: fixed;
             top: 0;
@@ -42,44 +38,29 @@
             justify-content: center;
             align-items: center;
             z-index: 99999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.3s ease;
         }
 
         .loader-logo {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             border: 3px solid var(--border-color);
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(210, 180, 140, 0.3);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
+            margin-bottom: 15px;
         }
 
         .loader-title {
             color: var(--text-white);
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             letter-spacing: 2px;
             margin-bottom: 15px;
         }
 
-        .loader-percentage {
-            color: var(--text-white);
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
         .loader-bar-container {
-            width: 250px;
-            height: 6px;
+            width: 220px;
+            height: 5px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 3px;
             overflow: hidden;
@@ -90,10 +71,16 @@
             width: 0%;
             height: 100%;
             background-color: var(--border-color);
-            transition: width 0.1s linear;
+            transition: width 0.2s ease;
         }
 
-        /* الأزرار العلوية الرئيسية بلون أسود */
+        .loader-percentage {
+            color: var(--text-white);
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        /* الأزرار العلوية */
         .hero-buttons {
             display: flex;
             justify-content: center;
@@ -111,8 +98,7 @@
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            transition: 0.3s;
+            transition: 0.2s;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -120,19 +106,6 @@
         }
 
         .hero-btn:hover {
-            transform: translateY(-2px);
-            background: #ffffff;
-            color: #000000;
-            border-color: #ffffff;
-        }
-
-        .hero-btn.discord {
-            background: var(--btn-black);
-            color: white;
-            border: 1px solid var(--border-color);
-        }
-        
-        .hero-btn.discord:hover {
             background: #ffffff;
             color: #000000;
         }
@@ -141,14 +114,13 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 12px;
-            padding: 15px;
+            gap: 10px;
+            padding: 12px;
             background-color: var(--card-bg);
             border-bottom: 2px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(5px);
         }
 
         nav a {
@@ -158,7 +130,7 @@
             font-size: 14px;
             padding: 6px 12px;
             border-radius: 6px;
-            transition: 0.3s;
+            transition: 0.2s;
         }
 
         nav a:hover, nav a.active {
@@ -166,15 +138,14 @@
             color: #000000;
         }
 
-        .section { display: none; padding: 20px; animation: fadeIn 0.4s ease-in-out; }
+        .section { display: none; padding: 20px; }
         .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .banner-image { width: 90%; max-width: 200px; margin-top: 20px; border: 3px solid var(--border-color); border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .rules-banner-image { width: 90%; max-width: 250px; margin-bottom: 15px; border: 3px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .banner-image { width: 90%; max-width: 180px; margin-top: 20px; border: 3px solid var(--border-color); border-radius: 50%; }
+        .rules-banner-image { width: 90%; max-width: 220px; margin-bottom: 15px; border: 3px solid var(--border-color); border-radius: 12px; }
         
         h1, h2 { color: var(--text-white); }
-        h1 { font-size: 36px; margin-top: 15px; letter-spacing: 1px; }
+        h1 { font-size: 32px; margin-top: 15px; }
 
         .hero-description {
             color: var(--text-gray);
@@ -184,24 +155,33 @@
             line-height: 1.6;
         }
 
-        .card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px 20px; margin: 15px auto; max-width: 650px; text-align: right; box-shadow: 0 4px 10px rgba(0,0,0,0.4); backdrop-filter: blur(5px); }
+        .card, details {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin: 12px auto;
+            max-width: 650px;
+            text-align: right;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
 
-        details { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; margin: 12px auto; max-width: 650px; text-align: right; overflow: hidden; transition: 0.3s; backdrop-filter: blur(5px); }
+        .card { padding: 15px 20px; }
+        details { overflow: hidden; }
         summary { padding: 15px; font-weight: bold; color: var(--text-white); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
         summary::after { content: '+'; font-size: 18px; }
         details[open] summary::after { content: '-'; }
         details p, details div { padding: 0 15px 15px 15px; margin: 0; color: var(--text-gray); font-size: 13px; line-height: 1.6; border-top: 1px dashed rgba(210, 180, 140, 0.3); padding-top: 10px; }
 
-        .founders-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; max-width: 800px; margin-left: auto; margin-right: auto; }
-        .founder-card { background-color: var(--card-bg); padding: 20px; border-radius: 15px; border: 2px solid var(--border-color); width: 150px; text-align: center; backdrop-filter: blur(5px); }
-        .founder-img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color); margin-bottom: 10px; }
-        .founder-card h3 { color: var(--text-white); margin: 0; font-size: 15px; }
-        .founder-card p { color: var(--text-gray); font-size: 12px; margin: 5px 0 0 0; }
+        .founders-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 20px auto; max-width: 650px; }
+        .founder-card { background-color: var(--card-bg); padding: 15px; border-radius: 12px; border: 2px solid var(--border-color); flex-basis: 100%; text-align: center; }
+        .founder-img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color); margin-bottom: 8px; }
+        .founder-card h3 { color: var(--text-white); margin: 0; font-size: 14px; }
+        .founder-card p { color: var(--text-gray); font-size: 11px; margin: 4px 0 0 0; }
     </style>
 </head>
 <body>
 
-    <!-- شاشة التحميل (Loading Screen) -->
+    <!-- شاشة التحميل -->
     <div id="loader-screen">
         <img src="banner.jpg" alt="Logo" class="loader-logo">
         <div class="loader-title">EAST LAND CITY</div>
@@ -216,51 +196,50 @@
         <a href="#" onclick="showSection('founders', event)" class="tab-link">المؤسسين</a>
         <a href="#" onclick="showSection('activation', event)" class="tab-link">التفعيل</a>
         <a href="#" onclick="showSection('faq', event)" class="tab-link">الأسئلة الشائعة</a>
+        <a href="#" onclick="showSection('rules', event)" class="tab-link">القوانين</a>
     </nav>
 
     <div id="home" class="section active">
         <img src="banner.jpg" alt="EAST LAND CITY" class="banner-image">
         <h1>EAST LAND CITY</h1>
         <p class="hero-description">بوابتك الرسمية لسيرفر EAST LAND RP — انضم إلى مجتمعنا على ديسكورد.</p>
-
-        <!-- زر الانضمام إلى الديسكورد بلون أسود -->
         <div class="hero-buttons">
-            <a href="https://discord.gg/1el" target="_blank" class="hero-btn discord">الانضمام إلى الديسكورد</a>
+            <a href="https://discord.gg/1el" target="_blank" class="hero-btn">الانضمام إلى الديسكورد</a>
         </div>
     </div>
 
     <div id="founders" class="section">
         <h2>المؤسسون</h2>
         <div class="founders-container">
-            <!-- كريكو في الأعلى -->
-            <div class="founder-card" style="flex-basis: 100%;">
+            <div class="founder-card">
                 <img src="kriku.jpg" alt="علي - كريكو" class="founder-img">
                 <h3>علي - كريكو</h3>
-                <p>مطور الموقع</p>
+                <p>مطور الموقع والفاوندر</p>
             </div>
-            <!-- مرتضى أسفله -->
-            <div class="founder-card" style="flex-basis: 100%;">
+            <div class="founder-card">
+                <img src="hussain.jpg" alt="حسين" class="founder-img">
+                <h3>حسين - شيوعي</h3>
+                <p>الاونر شيب</p>
+            </div>
+            <div class="founder-card">
                 <img src="murtada.jpg" alt="مرتضى" class="founder-img">
                 <h3>مرتضى</h3>
+                <p>الفاوندر</p>
             </div>
-            <!-- أبو مسلم أسفله ومعه مطور الماب -->
-            <div class="founder-card" style="flex-basis: 100%;">
+            <div class="founder-card">
                 <img src="abumuslim.jpg" alt="أبو مسلم" class="founder-img">
                 <h3>أبو مسلم</h3>
                 <p>مطور الماب</p>
             </div>
-            <!-- البقية بشكل أفقي بجانب بعضهم -->
-            <div class="founder-card">
-                <img src="hussain.jpg" alt="حسين" class="founder-img">
-                <h3>حسين - شيوعي</h3>
-            </div>
             <div class="founder-card">
                 <img src="hamad.jpg" alt="حمد" class="founder-img">
                 <h3>حمد</h3>
+                <p>الاداره العليا</p>
             </div>
             <div class="founder-card">
                 <img src="inhdar.jpg" alt="انحدار" class="founder-img">
                 <h3>انحدار</h3>
+                <p>الاداره العليا</p>
             </div>
         </div>
     </div>
@@ -278,7 +257,6 @@
         </div>
     </div>
 
-    <!-- القسم 5: الأسئلة الشائعة (FAQ) -->
     <div id="faq" class="section">
         <h2>الأسئلة الشائعة (FAQ)</h2>
         <details><summary>كيف يمكنني الدخول إلى السيرفر؟</summary><p>يجب عليك الانضمام إلى سيرفر الديسكورد الخاص بنا، قراءة القوانين بعناية، ثم التوجه إلى قسم التفعيل واتباع التعليمات المطلوبة.</p></details>
@@ -287,8 +265,7 @@
         <details><summary>ما هي عقوبة مخالفة قوانين الرول بلي؟</summary><p>تختلف العقوبة بناءً على حجم المخالفة وتتراوح بين التحذيرات (الورنات)، الباند المؤقت، أو الباند النهائي (الحظر الدائم) في حال المخالفات الجسيمة.</p></details>
     </div>
 
-    <!-- قسم القوانين في الأسفل مع البنر -->
-    <div class="section active" style="display: block; margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+    <div id="rules" class="section">
         <img src="rules-banner.jpg" alt="قوانين السيرفر" class="rules-banner-image">
         <h2>قوانين السيرفر</h2>
         <details><summary>قوانين الحياة الجديدة - NLR</summary><p>في حال إغمائك بشكل كامل لا يمكنك الكلام أو الحركة أو فعل أي شيء، في حال تم إخراجك من قبل شخص وتم إنعاشك من قبل مسعفين تستطيع تذكر الأحداث (في العيادة الخاصة من احد اللاعبين الذين لديهم عداوة معك لا تستطيع تذكر أي شي حصل لك / منها العداوات او الاحداث).</p></details>
@@ -303,44 +280,36 @@
         <details><summary>قوانين الشرطة</summary><div><strong>إيقاف الخدمات والمداهمات:</strong><br>1 - يحق للضابط وما فوق برفع طلب إيقاف خدمات الى المحكمة لا يمكن تنفيذ إيقاف الخدمات الا من خلال حكم من المحكمة.<br>2 - يتم طلب المداهمة من خلال الضباط وما فوق ولا يمكن مداهمة أي شخص الا من خلال أمر تنفيد من المحكمة.<br>3 - في حال حدوث أي مخالفه سواء بالرول بلاي أو قوانين الشرطة سوف يتم محاسبة مسؤول الحالة ويحتمل مسؤولية الأفراد.<br>4 - يجب على العسكري عدم إخراج السلاح الا بعد أن يقوم المجرم بأخرج أي سلاحه.<br>5 - يجب على العسكري استخدام نفس الفئة الأسلحة "خفيف، ثقيل" المستخدمة من المجرم ب استثناء أوامر القيادة.<br>6 - على جميع العساكر والأفراد عدم استخدام الأسلحة النارية في حال استخدام المجرم سلاح أبيض الا في حالة مهاجمة المجرم للعسكري.<br>7 - في حال التفرقة بين المواطنين في التعامل سواء التفاوض مع مجرم او التعامل مع مسعف أو مع مواطن بسوء سيتم تحويل الموضوع رهاينا وأن يتم التعامل الكامل بالرول وفي حدوده فقط.<br><br><strong>سلوك رجل الأمن:</strong><br>يجب أن يكون رجل الأمن مهذب تجاه المواطنين ومع زملائهم ، يجب أن يكون لبقاً في أداء واجبه ، متحكماً في اعصابه ويتحمل أقصى درجات الصبر والتقدير. لا يجوز لهم استخدام لغة أو إماءات بديئة أو عنيفة تجاه المواطنين أو زملائه في شرطة ارض الشرق سيتي.<br>لا يجوز لرجال الأمن ارتكاب أي عمل من أعمال الفساد، وعليكم أيضاً معارضة ومكافحة كل هذه الأعمال بصرامة والابلاغ عنها.<br>يجب على رجال الأمن تطبيق القانون ، في أدائهم لواجبههم ، احترام وحماية كرامة الإنسان والحفاظ على حقوق الإنسان لجميع الأشخاص ودعمها.<br>تعتبر الخيانة أو التمرد انهيارا خطيرا في الانضباط والنظام داخل حكومة ارض الشرق، لذلك، فإن أي رجل امن يكون متمردا تجاه حكومة ارض الشرق يخضع لإجراءات تأديبية قد تؤدى إلى إنهاء الخدمة أو الإعدام بالرصاص.</div></details>
     </div>
 
-    <!-- نافذة يوزر ديسكورد -->
-    <div id="discord-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 9999;">
-        <div style="background: #111111; border: 1px solid var(--border-color); padding: 20px; border-radius: 8px; text-align: center; color: white; width: 300px; font-family: sans-serif;">
-            <h3>أدخل يوزر ديسكورد للمتابعة</h3>
-            <input type="text" id="discord-username" placeholder="Discord Username" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #555; background: #000; color: #fff; box-sizing: border-box;">
-            <button onclick="sendDiscord()" style="background: var(--btn-black); color: var(--text-white); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold;">إرسال</button>
-        </div>
-    </div>
-
     <script>
-        // شاشة تحميل سريعة ومضمونة
+        // شاشة تحميل سريعة
         let currentPercent = 0;
         const loaderBar = document.getElementById('loader-bar');
         const loaderPercentage = document.getElementById('loader-percentage');
         const loaderScreen = document.getElementById('loader-screen');
 
         let loadInterval = setInterval(function() {
-            currentPercent += Math.floor(Math.random() * 15) + 10; 
-            if (currentPercent >= 100) {
-                currentPercent = 100;
-                clearInterval(loadInterval);
-                loaderScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loaderScreen.style.display = 'none';
-                }, 500);
-            }
+            currentPercent += 25;
             loaderBar.style.width = currentPercent + '%';
             loaderPercentage.innerText = currentPercent + '%';
-        }, 100);
+            
+            if (currentPercent >= 100) {
+                clearInterval(loadInterval);
+                loaderScreen.style.opacity = '0';
+                setTimeout(() => { loaderScreen.style.display = 'none'; }, 300);
+            }
+        }, 80);
 
-        // التنقل بين الأقسام
+        // التنقل السريع بين الأقسام
         function showSection(sectionId, event) {
             if(event) event.preventDefault();
-            document.querySelectorAll('.section').forEach(sec => {
-                if(sec.id === 'home' || sec.id === 'founders' || sec.id === 'activation' || sec.id === 'faq') {
-                    sec.classList.remove('active');
-                }
-            });
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
             
-            docu
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+                                                                                      </html>
+
