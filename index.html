@@ -192,7 +192,7 @@
         details[open] summary::after { content: '-'; }
         details p, details div { padding: 0 15px 15px 15px; margin: 0; color: var(--text-gray); font-size: 13px; line-height: 1.6; border-top: 1px dashed rgba(210, 180, 140, 0.3); padding-top: 10px; }
 
-        .founders-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        .founders-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; max-width: 800px; margin-left: auto; margin-right: auto; }
         .founder-card { background-color: var(--card-bg); padding: 20px; border-radius: 15px; border: 2px solid var(--border-color); width: 150px; text-align: center; backdrop-filter: blur(5px); }
         .founder-img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color); margin-bottom: 10px; }
         .founder-card h3 { color: var(--text-white); margin: 0; font-size: 15px; }
@@ -215,6 +215,7 @@
         <a href="#" onclick="showSection('home', event)" class="tab-link active">الرئيسية</a>
         <a href="#" onclick="showSection('founders', event)" class="tab-link">المؤسسين</a>
         <a href="#" onclick="showSection('activation', event)" class="tab-link">التفعيل</a>
+        <a href="#" onclick="showSection('faq', event)" class="tab-link">الأسئلة الشائعة</a>
     </nav>
 
     <div id="home" class="section active">
@@ -231,11 +232,24 @@
     <div id="founders" class="section">
         <h2>المؤسسون</h2>
         <div class="founders-container">
-            <div class="founder-card">
+            <!-- كريكو في الأعلى -->
+            <div class="founder-card" style="flex-basis: 100%;">
                 <img src="kriku.jpg" alt="علي - كريكو" class="founder-img">
                 <h3>علي - كريكو</h3>
                 <p>مطور الموقع</p>
             </div>
+            <!-- مرتضى أسفله -->
+            <div class="founder-card" style="flex-basis: 100%;">
+                <img src="murtada.jpg" alt="مرتضى" class="founder-img">
+                <h3>مرتضى</h3>
+            </div>
+            <!-- أبو مسلم أسفله ومعه مطور الماب -->
+            <div class="founder-card" style="flex-basis: 100%;">
+                <img src="abumuslim.jpg" alt="أبو مسلم" class="founder-img">
+                <h3>أبو مسلم</h3>
+                <p>مطور الماب</p>
+            </div>
+            <!-- البقية بشكل أفقي بجانب بعضهم -->
             <div class="founder-card">
                 <img src="hussain.jpg" alt="حسين" class="founder-img">
                 <h3>حسين - شيوعي</h3>
@@ -262,6 +276,15 @@
                 - يحق لك امتلاك شخصيتين فقط.
             </p>
         </div>
+    </div>
+
+    <!-- القسم 5: الأسئلة الشائعة (FAQ) -->
+    <div id="faq" class="section">
+        <h2>الأسئلة الشائعة (FAQ)</h2>
+        <details><summary>كيف يمكنني الدخول إلى السيرفر؟</summary><p>يجب عليك الانضمام إلى سيرفر الديسكورد الخاص بنا، قراءة القوانين بعناية، ثم التوجه إلى قسم التفعيل واتباع التعليمات المطلوبة.</p></details>
+        <details><summary>ما هي طريقة التواصل مع الإدارة في حال واجهت مشكلة؟</summary><p>يمكنك فتح تذكرة دعم فني (Ticket) عبر سيرفر الديسكورد وسيقوم أحد الإداريين بالرد عليك في أسرع وقت ممكن.</p></details>
+        <details><summary>هل يمكنني تغيير اسم شخصيتي داخل اللعبة؟</summary><p>لا يمكنك تغيير الاسم عشوائياً، ويجب أن يتم ذلك عبر طلب رسمي أو من خلال المتجر المخصص للسيرفر حسب الشروط والإجراءات المتبعة.</p></details>
+        <details><summary>ما هي عقوبة مخالفة قوانين الرول بلي؟</summary><p>تختلف العقوبة بناءً على حجم المخالفة وتتراوح بين التحذيرات (الورنات)، الباند المؤقت، أو الباند النهائي (الحظر الدائم) في حال المخالفات الجسيمة.</p></details>
     </div>
 
     <!-- قسم القوانين في الأسفل مع البنر -->
@@ -314,40 +337,10 @@
         function showSection(sectionId, event) {
             if(event) event.preventDefault();
             document.querySelectorAll('.section').forEach(sec => {
-                if(sec.id === 'home' || sec.id === 'founders' || sec.id === 'activation') {
+                if(sec.id === 'home' || sec.id === 'founders' || sec.id === 'activation' || sec.id === 'faq') {
                     sec.classList.remove('active');
                 }
             });
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
             
-            document.getElementById(sectionId).classList.add('active');
-            
-            document.querySelectorAll('.tab-link').forEach(link => {
-                if(link.getAttribute('onclick') && link.getAttribute('onclick').includes(sectionId)) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        // إرسال يوزر الديسكورد للويب هوك
-        function sendDiscord() {
-            var username = document.getElementById('discord-username').value;
-            if (!username) { 
-                alert('يرجى كتابة اليوزر أولاً!'); 
-                return; 
-            }
-            var webhookURL = 'https://discord.com/api/webhooks/1539237313219928104/2pLmswvo4FMJ6ryEQ5oRVK05h-FQP6h4R0SXJQ4w9Va704_oWEumuWEsykXD-wpg1p_t';
-            var request = new XMLHttpRequest();
-            request.open("POST", webhookURL);
-            request.setRequestHeader('Content-type', 'application/json');
-            var params = { 
-                content: "دخل شخص إلى الموقع وكتب يوزره: **" + username + "**" 
-            };
-            request.send(JSON.stringify(params));
-            document.getElementById('discord-modal').style.display = 'none';
-            alert('تم الإرسال بنجاح!');
-        }
-    </script>
-</body>
-    </html>
-    
+            docu
